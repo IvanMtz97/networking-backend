@@ -12,5 +12,18 @@ services:
     ports:
       - "5432:5432"
 
+  api:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    depends_on:
+      - db
+    command: [ "npm", "run", "start:dev" ]
+
 volumes:
   networking-postgres-17:
