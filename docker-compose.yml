@@ -1,0 +1,16 @@
+name: "networking-backend"
+
+services:
+  db:
+    image: postgres:17.2
+    volumes:
+      - networking-postgres-17:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: networking
+    ports:
+      - "5432:5432"
+
+volumes:
+  networking-postgres-17:
