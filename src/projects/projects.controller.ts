@@ -1,5 +1,6 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('projects')
 export class ProjectsController {
@@ -10,6 +11,7 @@ export class ProjectsController {
     return this.projectsService.getProjects();
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   postProject(): string {
     return this.projectsService.postProject();
