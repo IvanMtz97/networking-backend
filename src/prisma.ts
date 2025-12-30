@@ -1,9 +1,12 @@
 import { PrismaClient } from 'generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { z } from 'zod';
+import 'dotenv/config';
+
+const connectionString = process.env.DATABASE_URL;
 
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: connectionString,
 });
 
 const ProjectInput = z.object({
@@ -37,9 +40,9 @@ const prisma = new PrismaClient({
         args.create = ProjectInput.parse(args.create);
         args.update = ProjectInput.partial().parse(args.update);
         return query(args);
-      }
-    }
-  }
+      },
+    },
+  },
 });
 
 export default prisma;
