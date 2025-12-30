@@ -1,6 +1,7 @@
-import { Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, UseGuards, Body } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { AuthGuard } from '@nestjs/passport';
+import { ProjectModel } from 'generated/prisma/models';
 
 @Controller('projects')
 export class ProjectsController {
@@ -13,7 +14,7 @@ export class ProjectsController {
 
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  postProject(): string {
-    return this.projectsService.postProject();
+  create(@Body() createProjectDto: any): Promise<ProjectModel> {
+    return this.projectsService.createProject(createProjectDto);
   }
 }
